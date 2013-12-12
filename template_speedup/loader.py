@@ -1,4 +1,5 @@
 
+from django.core.cache import cache
 from django.template.loaders.cached import Loader as CachedLoader
 
 
