@@ -7,14 +7,13 @@ from django.core.management.base import BaseCommand, make_option
 from django.template.base import Node
 from django.template.loader import get_template
 from django.template.context import Context
+
 from django.utils.encoding import force_unicode
 
 logger = logging.getLogger(__name__)
 
 
 def patch_template(template, out_file):
-    template = get_template(template_name)
-
     def file_render(self, out_file, context):
         bits = out_file
         for node in self:
