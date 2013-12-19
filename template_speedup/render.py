@@ -94,10 +94,13 @@ class FileNodeList(object):
         return u''
 
     def render_node(self, node, context):
+        return node.render(context)
+
+        # TODO
         if isinstance(node, IfNode):
             new_cn = []
-            for _, nodelist in node.conditions_nodelists:
-                new_cn.append((_, FileNodeList(nodelist, self.outfile)))
+            for condition, nodelist in node.conditions_nodelists:
+                new_cn.append((condition, FileNodeList(nodelist, self.outfile)))
             node.conditions_nodelists = new_cn
         elif isinstance(node, ForNode):
             return self.render_for(node, context)
@@ -108,7 +111,6 @@ class FileNodeList(object):
 
     def render(self, context):
         for node in self:
-            print '--->', `node`
             if isinstance(node, Node):
                 bit = self.render_node(node, context)
             else:
