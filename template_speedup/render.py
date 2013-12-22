@@ -127,8 +127,9 @@ def render_to_file(out_file, template_name, context=None):
     if context is None:
         context = Context()
 
-    patched_template = FileNodeList(template.nodelist, out_file)
+    template.nodelist = FileNodeList(template.nodelist, out_file)
     try:
-        patched_template.render(context=context)
+        template.render(context=context)
     finally:
-        patched_template.nodelist = patched_template.nodelist.nodelist
+        # remove patching
+        template.nodelist = patched_template.nodelist.nodelist
