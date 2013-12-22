@@ -132,4 +132,4 @@ def render_to_file(out_file, template_name, context=None):
         template.render(context=context)
     finally:
         # remove patching
-        template.nodelist = patched_template.nodelist.nodelist
+        template.nodelist = template.nodelist.nodelist
